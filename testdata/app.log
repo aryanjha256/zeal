@@ -1,0 +1,8 @@
+2024-01-15 10:30:00 INFO Server started on port 8080
+2024-01-15 10:30:01 DEBUG Loading configuration
+2024-01-15 10:30:05 [WARN] Slow query detected: 2500ms
+2024-01-15 10:30:06 ERROR Connection timeout for request abc123
+2024-01-15 10:30:07 ERROR Database unreachable, retry 3
+2024-01-15 10:30:10 INFO Health check passed
+2024-01-15 10:30:20 [ERROR] Request failed with status 500
+2024-01-15 10:30:25 FATAL Out of memory, shutting down

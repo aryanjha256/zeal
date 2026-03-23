@@ -1,0 +1,5 @@
+ts=2024-01-15T10:30:00Z level=info msg="Server started" port=8080
+ts=2024-01-15T10:30:05Z level=warn msg="Slow query" duration_ms=2500
+ts=2024-01-15T10:30:06Z level=error msg="Connection timeout" request_id=abc123
+ts=2024-01-15T10:30:20Z level=error msg="Request failed" status=500 path=/api/users
+ts=2024-01-15T10:30:25Z level=fatal msg="Out of memory" heap_used=2147483648

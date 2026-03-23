@@ -1,0 +1,20 @@
+{"timestamp":"2024-03-15T09:00:01Z","level":"info","message":"Server started","service":"api","host":"web-1","port":8080}
+{"timestamp":"2024-03-15T09:00:02Z","level":"info","message":"Connected to database","service":"api","host":"web-1","db":"postgres://db:5432/app"}
+{"timestamp":"2024-03-15T09:00:05Z","level":"info","message":"Request completed","service":"api","host":"web-1","method":"GET","path":"/api/health","status":200,"latency_ms":2,"request_id":"req-0001"}
+{"timestamp":"2024-03-15T09:00:10Z","level":"info","message":"Request completed","service":"api","host":"web-2","method":"GET","path":"/api/users","status":200,"latency_ms":45,"request_id":"req-0002"}
+{"timestamp":"2024-03-15T09:00:15Z","level":"warn","message":"Slow query detected","service":"api","host":"web-1","query":"SELECT * FROM orders WHERE created_at > ?","duration_ms":2500,"request_id":"req-0003"}
+{"timestamp":"2024-03-15T09:00:16Z","level":"error","message":"Connection timeout","service":"api","host":"web-1","remote_addr":"10.0.1.50","request_id":"req-0003","error":"dial tcp: i/o timeout"}
+{"timestamp":"2024-03-15T09:00:17Z","level":"error","message":"Database unreachable","service":"api","host":"web-1","request_id":"req-0003","retry":1}
+{"timestamp":"2024-03-15T09:00:18Z","level":"error","message":"Database unreachable","service":"api","host":"web-1","request_id":"req-0003","retry":2}
+{"timestamp":"2024-03-15T09:00:19Z","level":"warn","message":"Circuit breaker opened","service":"api","host":"web-1","target":"database","threshold":3}
+{"timestamp":"2024-03-15T09:00:20Z","level":"error","message":"Request failed","service":"api","host":"web-1","method":"POST","path":"/api/orders","status":503,"latency_ms":5002,"request_id":"req-0004","error":"service unavailable"}
+{"timestamp":"2024-03-15T09:00:25Z","level":"info","message":"Request completed","service":"api","host":"web-2","method":"GET","path":"/api/users/42","status":200,"latency_ms":12,"request_id":"req-0005"}
+{"timestamp":"2024-03-15T09:00:30Z","level":"info","message":"Deployment started","service":"api","host":"web-1","version":"v2.3.1","deployer":"ci-bot"}
+{"timestamp":"2024-03-15T09:00:35Z","level":"info","message":"Health check passed","service":"api","host":"web-1","uptime_s":34}
+{"timestamp":"2024-03-15T09:00:40Z","level":"warn","message":"High memory usage","service":"api","host":"web-1","used_mb":1800,"total_mb":2048,"percent":87}
+{"timestamp":"2024-03-15T09:00:45Z","level":"error","message":"Request failed","service":"api","host":"web-1","method":"GET","path":"/api/reports","status":500,"latency_ms":150,"request_id":"req-0006","error":"null pointer dereference"}
+{"timestamp":"2024-03-15T09:00:46Z","level":"error","message":"Panic recovered","service":"api","host":"web-1","request_id":"req-0006","stack":"main.go:142 > handler.go:89 > reports.go:34"}
+{"timestamp":"2024-03-15T09:00:50Z","level":"info","message":"Request completed","service":"api","host":"web-2","method":"GET","path":"/api/health","status":200,"latency_ms":1,"request_id":"req-0007"}
+{"timestamp":"2024-03-15T09:00:55Z","level":"info","message":"Request completed","service":"api","host":"web-1","method":"POST","path":"/api/users","status":201,"latency_ms":89,"request_id":"req-0008"}
+{"timestamp":"2024-03-15T09:01:00Z","level":"warn","message":"Rate limit approaching","service":"api","host":"web-2","client":"10.0.2.100","requests_per_min":450,"limit":500}
+{"timestamp":"2024-03-15T09:01:05Z","level":"fatal","message":"Out of memory","service":"api","host":"web-1","heap_used_mb":2047,"heap_total_mb":2048,"goroutines":15234}

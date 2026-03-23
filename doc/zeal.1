@@ -1,0 +1,158 @@
+.TH ZEAL 1 "March 2026" "zeal 0.1.0" "User Commands"
+.SH NAME
+zeal \- a structured log query language
+.SH SYNOPSIS
+.B zeal
+[\fIOPTIONS\fR] '\fIQUERY\fR'
+.br
+.B zeal
+\fB\-f\fR \fIFILE\fR [\fIOPTIONS\fR] '\fIQUERY\fR'
+.SH DESCRIPTION
+.B zeal
+is a structured log query language and runtime. It reads log files in JSON,
+logfmt, syslog, or plain text format, and filters, correlates, and groups
+entries using a SQL-like query syntax.
+.PP
+The killer feature is \fBtemporal correlation\fR: find events that occur within
+a specified time window of other events (e.g., errors within 5 seconds of
+a warning).
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Show help and exit.
+.TP
+.BR \-V ", " \-\-version
+Show version and exit.
+.TP
+.BR \-f ", " \-\-file " " \fIPATH\fR
+Log file to read. Can be used instead of or in addition to the
+.B FROM
+clause in the query. May be specified multiple times.
+.TP
+.BR \-\-format " " \fIFMT\fR
+Output format. One of:
+.RS
+.TP
+.B text
+Human-readable with ANSI colors (default).
+.TP
+.B json
+NDJSON \(em one JSON object per matching entry. Pipe-friendly.
+.TP
+.B raw
+Original raw log lines, no decoration.
+.RE
+.TP
+.BR \-\-no\-color
+Disable ANSI color output. Equivalent to \fB\-\-color never\fR.
+.TP
+.BR \-\-color " " \fIMODE\fR
+Color mode:
+.B auto
+(default, detect TTY),
+.B always\fR,
+or
+.B never\fR.
+.TP
+.BR \-F ", " \-\-follow
+Follow the file for new entries (like \fBtail \-f\fR). Polls every 200ms.
+Handles log rotation (detects file truncation).
+.TP
+.BR \-\-explain
+Show the query execution plan without running the query.
+.SH QUERY SYNTAX
+.SS FROM clause
+.nf
+\fBFROM\fR \fIpath\fR [, \fIpath\fR ...]
+\fBFROM\fR stdin
+.fi
+.PP
+Specifies one or more log sources. File format is auto-detected.
+.SS WHERE clause
+.nf
+\fBWHERE\fR \fIexpression\fR
+.fi
+.PP
+Filter entries. Supports field comparisons, boolean logic (AND, OR, NOT),
+parenthesized grouping, and temporal correlation.
+.SS Comparison operators
+.nf
+=  !=  >  <  >=  <=  CONTAINS  MATCHES
+.fi
+.PP
+String comparisons are case-insensitive. Numeric fields stored as strings
+are auto-coerced for numeric operators.
+.SS Temporal correlation
+.nf
+\fBWHERE\fR \fIcondition\fR \fBWITHIN\fR \fIduration\fR \fBOF\fR \fIanchor\fR
+.fi
+.PP
+Matches entries satisfying \fIcondition\fR that occur within \fIduration\fR of
+an entry satisfying \fIanchor\fR.
+.PP
+Duration units: \fBms\fR, \fBs\fR, \fBm\fR, \fBh\fR, \fBd\fR.
+.PP
+Uses binary search on sorted timestamps for O(n\ log\ m) performance.
+.SS GROUP BY clause
+.nf
+\fBGROUP BY\fR \fIfield\fR [, \fIfield\fR ...]
+.fi
+.PP
+Group matching entries by field value(s).
+.SS SHOW clause
+.nf
+\fBSHOW FIRST\fR \fIn\fR
+\fBSHOW LAST\fR \fIn\fR
+\fBSHOW COUNT\fR
+.fi
+.PP
+Limit output to the first or last \fIn\fR entries, or show only the count.
+.SH LOG FORMATS
+.B zeal
+auto-detects the log format from the first line:
+.TP
+.B JSON
+Lines starting with \fB{\fR. Fields are extracted from JSON keys.
+.TP
+.B logfmt
+Lines containing \fBkey=value\fR pairs.
+.TP
+.B Plain text
+Everything else. Level and timestamp are detected heuristically.
+.PP
+Well-known fields mapped automatically:
+level/lvl/severity, message/msg/text/body, timestamp/ts/time/t/@timestamp.
+.SH EXAMPLES
+.nf
+# Find errors
+zeal 'FROM /var/log/app.json WHERE level = "error"'
+
+# Errors within 5 seconds of a warning
+zeal 'FROM /var/log/app.json WHERE level = "error" WITHIN 5s OF level = "warn"'
+
+# Group by request ID, show first entry per group
+zeal 'FROM app.json WHERE level = "error" GROUP BY request_id SHOW FIRST 1'
+
+# JSON output
+zeal \-\-format json 'FROM app.json WHERE status >= 500'
+
+# Follow mode
+zeal \-\-follow 'FROM /var/log/app.log WHERE level = "error"'
+
+# Query plan
+zeal \-\-explain 'FROM app.json WHERE level = "error" GROUP BY request_id'
+.fi
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+Parse error or runtime error.
+.SH AUTHOR
+Written as a demonstration of zero-copy log processing in Zig.
+.SH SEE ALSO
+.BR jq (1),
+.BR grep (1),
+.BR tail (1),
+.BR awk (1)
