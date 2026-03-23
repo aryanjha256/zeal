@@ -12,9 +12,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/aryankumar/zeal/actions/workflows/ci.yml"><img src="https://github.com/aryankumar/zeal/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/aryanjha256/zeal/actions/workflows/ci.yml"><img src="https://github.com/aryanjha256/zeal/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://github.com/aryankumar/zeal/releases"><img src="https://img.shields.io/github/v/release/aryankumar/zeal?include_prereleases" alt="Release"></a>
+  <a href="https://github.com/aryanjha256/zeal/releases"><img src="https://img.shields.io/github/v/release/aryanjha256/zeal?include_prereleases" alt="Release"></a>
 </p>
 
 ---
@@ -39,16 +39,16 @@ zeal 'FROM /var/log/app.json WHERE level = "error" WITHIN 5s OF level = "warn"'
 
 ### Pre-built binaries
 
-Download from [Releases](https://github.com/aryankumar/zeal/releases):
+Download from [Releases](https://github.com/aryanjha256/zeal/releases):
 
 ```bash
 # Linux (x86_64)
-curl -Lo zeal.tar.gz https://github.com/aryankumar/zeal/releases/latest/download/zeal-x86_64-linux.tar.gz
+curl -Lo zeal.tar.gz https://github.com/aryanjha256/zeal/releases/latest/download/zeal-x86_64-linux.tar.gz
 tar xzf zeal.tar.gz
 sudo mv zeal-x86_64-linux /usr/local/bin/zeal
 
 # macOS (Apple Silicon)
-curl -Lo zeal.tar.gz https://github.com/aryankumar/zeal/releases/latest/download/zeal-aarch64-macos.tar.gz
+curl -Lo zeal.tar.gz https://github.com/aryanjha256/zeal/releases/latest/download/zeal-aarch64-macos.tar.gz
 tar xzf zeal.tar.gz
 sudo mv zeal-aarch64-macos /usr/local/bin/zeal
 ```
@@ -58,7 +58,7 @@ sudo mv zeal-aarch64-macos /usr/local/bin/zeal
 Requires [Zig 0.16+](https://ziglang.org/download/):
 
 ```bash
-git clone https://github.com/aryankumar/zeal.git
+git clone https://github.com/aryanjha256/zeal.git
 cd zeal
 zig build -Doptimize=ReleaseFast
 sudo cp zig-out/bin/zeal /usr/local/bin/

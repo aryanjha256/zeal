@@ -55,5 +55,5 @@ demo "$ZEAL --explain 'FROM $DEMO WHERE level = \"error\" WITHIN 5s OF level = \
 demo "$ZEAL 'FROM $DEMO WHERE message CONTAINS \"timeout\" OR message CONTAINS \"unreachable\"'"
 
 echo ""
-echo -e "${BOLD}Done!${RESET} See more at: https://github.com/aryankumar/zeal"
+echo -e "${BOLD}Done!${RESET} See more at: https://github.com/aryanjha256/zeal"
 echo ""

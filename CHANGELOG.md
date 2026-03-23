@@ -28,4 +28,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **CI** — GitHub Actions: build, test, lint, cross-compile (Linux + macOS, x86_64 + aarch64)
 - **Benchmarks** — `bench/bench.sh` comparing zeal vs `grep | jq`
 
-[0.1.0]: https://github.com/aryankumar/zeal/releases/tag/v0.1.0
+[0.1.0]: https://github.com/aryanjha256/zeal/releases/tag/v0.1.0

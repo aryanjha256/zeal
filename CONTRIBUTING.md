@@ -5,7 +5,7 @@ Thanks for your interest in contributing! Zeal is a small, focused tool and ever
 ## Getting started
 
 ```bash
-git clone https://github.com/aryankumar/zeal.git
+git clone https://github.com/aryanjha256/zeal.git
 cd zeal
 zig build        # debug build
 zig build test   # run all tests

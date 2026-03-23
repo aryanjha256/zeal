@@ -532,7 +532,7 @@ fn printUsage(out: *Io.Writer) Io.Writer.Error!void {
         \\  zeal -f app.json --format json 'WHERE level = "error"'
         \\  zeal -f app.log --follow 'WHERE level = "error"'
         \\
-        \\Docs: https://github.com/aryankumar/zeal
+        \\Docs: https://github.com/aryanjha256/zeal
         \\
     , .{});
 }
